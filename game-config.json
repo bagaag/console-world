@@ -1,0 +1,119 @@
+{
+    "Help": [
+        "",
+        "Directions:",
+        "  Press the key once to look and again to go.",
+        "  n  North",
+        "  s  South",
+        "  e  East",
+        "  w  West",
+        "  a  Above",
+        "  b  Below",
+        "",
+        "Items:",
+        "  i         List inventory",
+        "  u         Use the item in your hand",
+        "  t         Take or put away an item into inventory (also supports # and name)",
+        "  t #       Take an item by number",
+        "  t [name]  Take an item by name",
+        "  d         Drop an item (also supports # and name)",
+        "  h         Describe what's in your hand",
+        "",
+        "Other:",
+        "  ?  Display help",
+        "  x  Exit"
+    ],
+    "Spawn": "Home",
+    "Locations": [
+        {
+            "Name": "Home",
+            "Description": "You're home. It's cozy and safe here.",
+            "Directions": [
+                {
+                    "Key": "N",
+                    "Description": "A small bed is neatly made. Some books sit on a shelf beside it.",
+                    "Location": null
+                },
+                {
+                    "Key": "S",
+                    "Description": "The large wooden front door is closed.",
+                    "Location": "Home: Front Yard"
+                },
+                {
+                    "Key": "E",
+                    "Description": "There is a window with a heavy curtain, partially opened. Its dark outside.",
+                    "Location": null
+                },
+                {
+                    "Key": "W",
+                    "Description": "A wooden chest sits by a small table. A candle dimly lights the room.",
+                    "Location": "Home: Chest"
+                }
+            ],
+            "Inventory": [],
+            "NPCs": []
+        },
+        {
+            "Name": "Home: Front Yard",
+            "Description": "The front yard is well groomed. Soft grass is lightly covered in dew. A large oak tree looms over the house.",
+            "Directions": [
+                {
+                    "Key": "N",
+                    "Description": "The small home has a large wooden door that's rounded at the top. It's closed.",
+                    "Location": "Home"
+                },
+                {
+                    "Key": "S",
+                    "Description": "Past the tree, a dirt road heads East to West.",
+                    "Location": "Home: Road"
+                },
+                {
+                    "Key": "E",
+                    "Description": "The side yard East of the house is unmowed. Tall grasses and bushes.",
+                    "Location": null
+                },
+                {
+                    "Key": "W",
+                    "Description": "The side yard East of the house leads to a forest of small trees.",
+                    "Location": null
+                }
+            ],
+            "Inventory": [],
+            "NPCs": [
+                {
+                    "Name": "Wolf",
+                    "Interactions": [
+                        {
+                            "ItemName": "Hand",
+                            "Description": "You attempt to pet the wolf. It lunges and grabs your hand it its mouth, severely injuring your hand."
+                        },
+                        {
+                            "ItemName": "Bread",
+                            "Description": "You drop the bread and step back. The wolf carefully approaches, eats the bread and looks at you with kind eyes."
+                        },
+                        {
+                            "ItemName": "Dagger",
+                            "Description": "You lunge at the wolf with your dagger and slit its throat. The wolf dies before it has a chance to retaliate."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "Home: Chest",
+            "Description": "You open the chest to find a dagger and an old tattered book.",
+            "Directions": [],
+            "Inventory": [
+                {
+                    "Name": "Book",
+                    "Description": "The book appears to be very old and inscribed by hand in an unfamiliar alphabet."
+                },
+                {
+                    "Name": "Dagger",
+                    "Description": "The dagger is about 10 inches long and very sharp."
+                }
+            ],
+            "NPCs": []
+        }
+    ]
+}
