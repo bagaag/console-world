@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.1/TestDotNet.dll",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.1/ConsoleWorld.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "console": "integratedTerminal",

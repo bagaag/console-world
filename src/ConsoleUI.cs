@@ -5,6 +5,7 @@ namespace ConsoleWorld
 {
     public class ConsoleUI
     {
+        private Config.Game gameConfig;
         private Game game;
         private delegate void WriteLine(string msg);
         private WriteLine WL = Console.WriteLine;
@@ -13,21 +14,52 @@ namespace ConsoleWorld
         private int state;
         private char lastChar;
         private Dictionary<string,string> directionLabels;
+        public List<string> Errors { get; private set; }
 
         //TODO: Refactor into player class
         private Location location;
 
-        public ConsoleUI(Game game)
+        public ConsoleUI()
         {
+            Errors = new List<string>();
+        }
+
+        /// <summary>
+        /// Loads game from config file and returns validation errors
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public void LoadGame(string configFile) 
+        {
+            try {
+                // parse config
+                gameConfig = ConsoleWorld.Config.Tools.DeserializeGame(configFile);
+            }
+            catch (Exception e) 
+            {
+                Errors.Add(e.Message);
+            }            
+            // validate config
+            Errors.AddRange(ConsoleWorld.Config.Tools.ValidateGame(gameConfig));
+            Errors.ForEach(s => WL(s));
+        }
+
+        private void Init() {
+            // create game
+            Game game = new Game(gameConfig);
             this.game = game;
             location = game.Spawn;
             state = (int)State.ReadLoop;
             directionLabels = new Dictionary<string, string>(){
                 {"N", "North"}, {"S", "South"}, {"E", "East"}, {"W", "West"}, {"A", "Above"}, {"B", "Below"}
-            };
+            };            
         }
+
         public void Start()
         {
+            if (Errors.Count>0) { WL("Errors need to be resolved"); return; }
+            Init();
+            WL("Welcome to Console World");//TODO: Move string to config
             WL(location.Description);
             Loop();
         }

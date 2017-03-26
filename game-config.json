@@ -114,6 +114,10 @@
                 }
             ],
             "NPCs": []
+        },
+        {
+            "Name": "Home: Road",
+            "Description": "It's a road."
         }
     ]
 }
