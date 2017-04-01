@@ -7,6 +7,8 @@ namespace ConsoleWorld
     {
         private Config.Game gameConfig;
         private Game game;
+        private Player player;
+
         private delegate void WriteLine(string msg);
         private WriteLine WL = Console.WriteLine;
         private WriteLine W = Console.Write;
@@ -15,9 +17,6 @@ namespace ConsoleWorld
         private char lastChar;
         private Dictionary<string,string> directionLabels;
         public List<string> Errors { get; private set; }
-
-        //TODO: Refactor into player class
-        private Location location;
 
         public ConsoleUI()
         {
@@ -48,8 +47,11 @@ namespace ConsoleWorld
             // create game
             Game game = new Game(gameConfig);
             this.game = game;
-            location = game.Spawn;
+            // create player
+            player = new Player();
+            player.Location = game.Spawn;
             state = (int)State.ReadLoop;
+            //TODO: Externalize direction labels
             directionLabels = new Dictionary<string, string>(){
                 {"N", "North"}, {"S", "South"}, {"E", "East"}, {"W", "West"}, {"A", "Above"}, {"B", "Below"}
             };            
@@ -60,7 +62,7 @@ namespace ConsoleWorld
             if (Errors.Count>0) { WL("Errors need to be resolved"); return; }
             Init();
             WL("Welcome to Console World");//TODO: Move string to config
-            WL(location.Description);
+            WL(player.Location.Description);
             Loop();
         }
 
@@ -71,12 +73,6 @@ namespace ConsoleWorld
                 var key = Console.ReadKey(true);
                 switch (key.KeyChar)
                 {
-                    case '?':
-                        Help();
-                        break;
-                    case 'x':
-                        Exit();
-                        break;
                     case 'n':
                     case 's':
                     case 'e':
@@ -84,6 +80,22 @@ namespace ConsoleWorld
                     case 'a':
                     case 'b':
                         Look(key.KeyChar.ToString().ToUpper());
+                        break;
+                    case '?':
+                        Help();
+                        break;
+                    case 'x':
+                        Exit();
+                        break;
+                    case 'i':
+                        break;
+                    case 'u':
+                        break;
+                    case 't':
+                        break;
+                    case 'd':
+                        break;
+                    case 'h':
                         break;
                 }
                 lastChar = key.KeyChar;
@@ -103,10 +115,10 @@ namespace ConsoleWorld
 
         private void Look(string input)
         {
-            Direction dir = location.Directions[input];
-            if (dir == null) 
+            Direction dir;
+            if (!player.Location.Directions.TryGetValue(input, out dir)) 
             {
-                WL(directionLabels[input] + ": Nothing to see here."); //TODO: Move string to game config
+                WL(directionLabels[input] + ": Nothing to see here."); //TODO: Move string to game config                
             }
             else if (lastChar == input.ToLower()[0]) 
             {
@@ -126,9 +138,9 @@ namespace ConsoleWorld
             }
             else 
             {
-                location = game.Locations[dir.Location]; //TODO: Validate direction-location mappings on startup
+                player.Location = game.Locations[dir.Location]; 
                 WL("Going " + directionLabels[input] + "...");
-                WL(location.Description); //TODO: Require descriptions on deserialization 
+                WL(player.Location.Description); 
             }
         }
     }

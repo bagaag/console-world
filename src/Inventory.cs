@@ -1,15 +1,45 @@
+using System.Collections.Generic;
+
 namespace ConsoleWorld
 {
     public class Inventory
     {
-        private Config.Inventory _config;
+        private List<Item> items = new List<Item>();
 
-        public Inventory(Config.Inventory inventory)
+        public Inventory(List<Config.Item> configItems)
         {
-            _config = inventory;
+            foreach (Config.Item ci in configItems) 
+            {
+                items.Add(new Item(ci));
+            }
+        }
+        public Inventory(Config.Item configItem)
+        {
+            items.Add(new Item(configItem));
+        }
+        public Inventory(){ }
+
+        public void Add(Item item) {
+            items.Add(item);
         }
 
-        public string Name { get { return _config.Name; } }
-        public string Description { get { return _config.Description; } }
+        public Item this[int ix]
+        {
+            get 
+            {
+                return items[ix];
+            }
+        }
+
+        public int Count { get { return items.Count; } }
+
+        public void Remove(int ix) 
+        {
+            items.RemoveAt(ix);
+        }
+        public void Remove (Item item) 
+        {
+            items.Remove(item);
+        }
     }
 }

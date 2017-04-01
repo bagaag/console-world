@@ -66,7 +66,6 @@ namespace ConsoleWorld.Config
             ValidateGame(gameconf);
             return gameconf;
         }        
-
         public static bool FileExists(string file) {
             return System.IO.File.Exists(file);
         }

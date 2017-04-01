@@ -102,7 +102,13 @@
         {
             "Name": "Home: Chest",
             "Description": "You open the chest to find a dagger and an old tattered book.",
-            "Directions": [],
+            "Directions": [
+                {
+                    "Key": "E",
+                    "Description": "You're looking towards the center of the room.",
+                    "Location": "Home"
+                }
+            ],
             "Inventory": [
                 {
                     "Name": "Book",

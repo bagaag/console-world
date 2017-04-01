@@ -23,7 +23,7 @@ namespace ConsoleWorld.Config
         public List<Interaction> Interactions { get; set; }
     }
 
-    public class Inventory
+    public class Item
     {
         [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
@@ -45,7 +45,7 @@ namespace ConsoleWorld.Config
         public Location()
         {
             Directions = new List<Direction>();
-            Inventory = new List<Inventory>();
+            Inventory = new List<Item>();
             NPCs = new List<NPC>();
         }
         [JsonProperty(Required = Required.Always)]
@@ -53,7 +53,7 @@ namespace ConsoleWorld.Config
         [JsonProperty(Required = Required.Always)]
         public string Description { get; set; }
         public List<Direction> Directions { get; set; }
-        public List<Inventory> Inventory { get; set; }
+        public List<Item> Inventory { get; set; }
         public List<NPC> NPCs { get; set; }
 
     }
